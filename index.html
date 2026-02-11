@@ -54,7 +54,7 @@
     <!-- Header -->
     <header class="text-center mb-6 max-w-lg w-full">
         <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Ramadan DP Maker</h1>
-        <p class="text-slate-500 mt-2 text-sm">Create your profile picture instantly.</p>
+        <p class="text-slate-500 mt-2 text-sm">Create your HD profile picture instantly.</p>
     </header>
 
     <!-- App Card -->
@@ -121,7 +121,7 @@
             <!-- Download -->
             <button id="downloadBtn" disabled 
                 class="btn-hover w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 disabled:cursor-not-allowed text-white py-3.5 rounded-xl font-bold text-base shadow-lg shadow-indigo-200 flex items-center justify-center gap-2 transition-all">
-                Download DP
+                Download HD DP
             </button>
         </div>
     </div>
@@ -131,9 +131,15 @@
     </footer>
 
     <script>
-        const CANVAS_SIZE = 1080;
+        // UPDATED: Set Canvas to 2048px (2K Resolution) for High Quality Output
+        const CANVAS_SIZE = 2048; 
         const canvas = document.getElementById('editorCanvas');
         const ctx = canvas.getContext('2d');
+        
+        // Enable High Quality Image Smoothing
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        
         canvas.width = CANVAS_SIZE;
         canvas.height = CANVAS_SIZE;
 
@@ -159,7 +165,7 @@
                 console.warn("SS.png not found");
                 document.getElementById('frameWarning').classList.remove('hidden');
                 // Optional: Draw placeholder text
-                ctx.font = "30px sans-serif";
+                ctx.font = "60px sans-serif"; // Increased font size for higher resolution
                 ctx.fillStyle = "gray";
                 ctx.textAlign = "center";
                 ctx.fillText("SS.png not found", CANVAS_SIZE/2, CANVAS_SIZE/2);
@@ -274,8 +280,8 @@
         document.getElementById('downloadBtn').addEventListener('click', () => {
             if(!state.userImg) return;
             const link = document.createElement('a');
-            link.download = `ramadan-dp-${Date.now()}.png`;
-            link.href = canvas.toDataURL('image/png', 1.0);
+            link.download = `ramadan-dp-hd-${Date.now()}.png`;
+            link.href = canvas.toDataURL('image/png', 1.0); // Maximum quality
             link.click();
         });
 
